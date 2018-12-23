@@ -1,0 +1,223 @@
+﻿@model STSShop.Models.MyViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+@section jsFooter{
+    
+    <script src="/Assets/js/controller/Themgiohang.js"></script>
+}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators-->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>
+                        Khuyến
+                        <span>mãi</span>
+                    </h3>
+                    <p>
+                        Giảm giá
+                        <span>10%</span> cho tất cả sản phẩm
+                    </p>
+                    <a class="button2" href="product.html">Mua ngay </a>
+                </div>
+            </div>
+        </div>
+        <div class="item item2">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>
+                        Sản phẩm
+                        <span>trẻ em</span>
+                    </h3>
+                    <p>
+                        Giảm giá tới
+                        <span>30%</span>
+                    </p>
+                    <a class="button2" href="product.html">Mua ngay </a>
+                </div>
+            </div>
+        </div>
+        <div class="item item3">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>
+                        Big
+                        <span>Deal</span>
+                    </h3>
+                    <p>
+                        Nhận phiếu ưu đãi tới
+                        <span>20%</span>
+                    </p>
+                    <a class="button2" href="product.html">Mua ngay </a>
+                </div>
+            </div>
+        </div>
+        <div class="item item4">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>
+                        Giảm giá
+                        <span>hôm nay</span>
+                    </h3>
+                    <p>
+                        Lấy ngay
+                        <span>40%</span> khuyến mãi
+                    </p>
+                    <a class="button2" href="product.html">Mua ngay </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<!-- //banner -->
+<!-- top Products -->
+<div class="ads-grid">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">
+            Sản phẩm của shop
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+        <!-- //tittle heading -->
+        <!-- product left -->
+        <div class="side-bar col-md-3">
+            <div class="search-hotel">
+                <h3 class="agileits-sear-head">Tìm kiếm sản phẩm</h3>
+                <form action="@Url.Action("Search", "Product")" method="get">
+                    <input type="search" id="miniKeyword" name="keyword" placeholder="Tên sản phẩm..." required="">
+                    <input type="submit" value=" ">
+                </form>
+            </div>
+
+            <form action="@Url.Action("Filter", "Product")" method="post">
+                <!-- price range -->
+                <div class="left-side">
+                    <h3 class="agileits-sear-head">Khoảng giá</h3>
+                    <ul class="dropdown-menu6">
+                        @foreach (var price in Model.myfilter.PriceList)
+                        {
+                            <li>
+                                <input type="checkbox" class="checked" name="gia" id="@price.PriceID" checked="@price.IsChecked" value="@price.PriceValue" onclick="this.form.submit();" />
+                                <span class="span">@price.PriceName</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <!-- //price range -->
+                <!-- food preference -->
+                <div class="left-side">
+                    <h3 class="agileits-sear-head">Loại sản phẩm</h3>
+                    <ul>
+                        @foreach (var category in Model.myfilter.CategoryList)
+                        {
+                            <li>
+                                <input type="checkbox" class="checked" name="loai" id="@category.CategoryID" checked="@category.IsChecked" value="@category.CategoryValue" onclick="this.form.submit();" />
+                                <span class="span">@category.CategoryName</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <!-- //food preference -->
+                <!-- cuisine -->
+                <div class="left-side">
+                    <h3 class="agileits-sear-head">Xuất xứ</h3>
+                    <ul>
+                        @foreach (var origin in Model.myfilter.OriginList)
+                        {
+                            <li>
+                                <input type="checkbox" class="checked" name="xuatxu" id="@origin.OriginID" checked="@origin.IsChecked" value="@origin.OriginValue" onclick="this.form.submit();" />
+                                <span class="span">@origin.OriginName</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <!-- //cuisine -->
+            </form>
+        </div>
+        <script src="/Assets/js/jquery-2.1.4.min.js"></script>
+        <script src="/Assets/js/jquery-ui.js"></script>
+        <script src="/Assets/js/controller/miniSearch.js"></script>
+        <!-- //product left -->
+        <!-- product right -->
+        <div class="agileinfo-ads-display col-md-9">
+            <div class="wrapper">
+                <!-- first section (nuts) -->
+                @foreach (var loaisp in Model.Myloaisanpham)
+                {
+                    var loaisanpham = loaisp.MaLoaiSP;
+                    <div class="product-sec1">
+                        <h3 class="heading-tittle">@loaisp.TenLoaiSP</h3>
+                        @foreach (var sp in Model.Mysanpham)
+                        {
+                            var quantity = (int)1;
+                            var url = "Product/Detail/" + sp.MaSP;
+                            var urlcart = "Cart/AddItem?masp=" + sp.MaSP + "&soluong=" + quantity;
+                            var loaisanpham1 = sp.MaLoaiSP;
+                            if (loaisanpham1 == loaisanpham)
+                            {
+                                <div class="col-md-4 product-men">
+                                    <div class="men-pro-item simpleCart_shelfItem">
+                                        <div class="men-thumb-item">
+                                            <img src="@sp.Hinhanhindex" alt="">
+                                            <div class="men-cart-pro">
+                                                <div class="inner-men-cart-pro">
+                                                    <a href="@Url.Action("Detail","Product",new { id = sp.MaSP })" class="link-product-add-cart">Xem nhanh</a>
+                                                </div>
+                                            </div>
+                                            <span class="product-new-top">New</span>
+
+                                        </div>
+                                        <div class="item-info-product ">
+                                            <h4>
+                                                <a href="@Url.Action("Detail","Product",new { id = sp.MaSP })">@sp.TenSP</a>
+                                            </h4>
+                                            <div class="info-product-price">
+                                                <span class="item_price">@sp.GiaBanLe.ToString("N0") VNĐ</span>
+
+                                            </div>
+                                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                                                <form >
+                                                    <fieldset>
+                                                        
+                                                        <input  type="button" onclick="them('@sp.MaSP')" value="Thêm vào giỏ" class="button" />
+                                                    </fieldset>
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                        <div class="clearfix"></div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- //product right -->
+    </div>
+</div>
+

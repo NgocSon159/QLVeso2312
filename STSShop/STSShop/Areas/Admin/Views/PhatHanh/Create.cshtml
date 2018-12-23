@@ -1,0 +1,137 @@
+﻿@model Models.EF.PhatHanh
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    
+    function changecost() {
+        var daily = document.getElementById("idMaDL");
+        var madaily = daily.options[daily.selectedIndex].text;
+
+        var loaivs = document.getElementById("idMaLoaiVS");
+        var maloaivs1 = loaivs.options[loaivs.selectedIndex].text;
+        ////Setting Value
+        ////document.getElementById("textFieldTextJS").value = selValue;
+        //console.log(selValue);
+        var data1 = JSON.stringify({
+            'madl': madaily,
+            'maloaivs': maloaivs1
+            
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/PhatHanh/abc",
+            data: data1,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.status == "1") {
+                    document.getElementById("soluong").value = response.soluongve;
+
+                }
+            },
+            failure: function (response) {
+                alert(response.responseText);
+
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+</script>
+
+
+
+<h2>Đăng kí số lượng</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Sản phẩm</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.Hidden("size", "155")
+    @Html.Hidden("sizedetail", "800")
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MaPH, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MaPH, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "width:50%" } })
+            @Html.ValidationMessageFor(model => model.MaDaiLy, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.MaDaiLy, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("MaDaiLy", null, htmlAttributes: new { @class = "form-control", @style = "width:50%" , @id = "idMaDL", onclick = "changecost()" })
+            @Html.ValidationMessageFor(model => model.MaDaiLy, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.MaLoaiVeSo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("MaLoaiVeSo", null, htmlAttributes: new { @class = "form-control", @style = "width:50%" , @id = "idMaLoaiVS" , onclick = "changecost()" })
+            @Html.ValidationMessageFor(model => model.MaLoaiVeSo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.SoLuong, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control", @type = "Number", @style = "width:50%" , @id = "soluong" } })
+            @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.NgayNhan, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NgayNhan, new { htmlAttributes = new { @class = "form-control", @type = "date", @style = "width:50%" } })
+            @Html.ValidationMessageFor(model => model.NgayNhan, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.SLBan, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SLBan, new { htmlAttributes = new { @class = "form-control", @type = "Number", @style = "width:50%" } })
+            @Html.ValidationMessageFor(model => model.SLBan, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DoanhThuDPH, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DoanhThuDPH, new { htmlAttributes = new { @class = "form-control", @type = "Number", @style = "width:50%" } })
+            @Html.ValidationMessageFor(model => model.DoanhThuDPH, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.HoaHong, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HoaHong, new { htmlAttributes = new { @class = "form-control", @type = "Number", @style = "width:50%" } })
+            @Html.ValidationMessageFor(model => model.HoaHong, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TienThanhToan, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TienThanhToan, new { htmlAttributes = new { @class = "form-control", @type = "Number", @style = "width:50%" } })
+            @Html.ValidationMessageFor(model => model.TienThanhToan, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Tạo mới" class="btn btn-info" />
+        </div>
+    </div>
+</div>
+}
+<div>
+    <button class="btn btn-default" onclick="location.href='@Url.Action("Index")';return false;"><b>Trở lại</b></button>&nbsp&nbsp&nbsp&nbsp
+</div>
+<br />
