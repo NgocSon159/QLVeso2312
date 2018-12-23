@@ -166,10 +166,13 @@ namespace STSShop.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 //ph.HoaHong = 10;
-                string hoa = ph.HoaHong.ToString();
-                hoa = hoa.Substring(0, 2);
-                int hoah = int.Parse(hoa);
-                ph.HoaHong = hoah;
+                if (ph.HoaHong != null)
+                {
+                    string hoa = ph.HoaHong.ToString();
+                    hoa = hoa.Substring(0, 2);
+                    int hoah = int.Parse(hoa);
+                    ph.HoaHong = hoah;
+                }
                 TempData["notice"] = "Successfully edit";
                 TempData["tensanpham"] = ph.MaLoaiVeSo;
                 db.Entry(ph).State = EntityState.Modified;
